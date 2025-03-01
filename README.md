@@ -2,4 +2,4 @@
 
 
 The project is live at:
-https://countriesapiraj.netlify.app/
+https://restcountriesapirs.netlify.app/
