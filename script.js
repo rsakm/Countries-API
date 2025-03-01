@@ -56,7 +56,30 @@ search.addEventListener('input',(e)=>{
 })
 
 
-theme.addEventListener('click',()=>{
-    document.body.classList.toggle('dark');
+// theme.addEventListener('click',()=>{
+//     document.body.classList.toggle('dark');
 
-})
+// })
+function applyTheme(themeMode) {
+    if (themeMode === 'dark') {
+        document.body.classList.add('dark');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    } else {
+        document.body.classList.remove('dark');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+    }
+}
+
+// Load theme from localStorage
+const savedTheme = localStorage.getItem('theme') || 'light';
+applyTheme(savedTheme);
+
+// Toggle theme and save preference
+theme.addEventListener('click', () => {
+    const newTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    applyTheme(newTheme);
+});
+
