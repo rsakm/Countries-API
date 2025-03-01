@@ -33,14 +33,31 @@ function renderCountries(data){
     })
 }
 
-let allCountriesInfo 
+// let allCountriesInfo 
 
-fetch("https://restcountries.com/v3.1/all")
-.then((response)=>response.json())
-.then((data)=>{
-    renderCountries(data)
-    allCountriesInfo = data
-})
+// fetch("https://restcountries.com/v3.1/all")
+// .then((response)=>response.json())
+// .then((data)=>{
+//     renderCountries(data)
+//     allCountriesInfo = data
+// })/
+
+const API_URL = "https://restcountries.com/v3.1/all";
+
+// Check if data is already in localStorage
+let allCountriesInfo = JSON.parse(localStorage.getItem("countriesData"));
+
+if (!allCountriesInfo) {
+    fetch(API_URL)
+        .then((response) => response.json())
+        .then((data) => {
+            localStorage.setItem("countriesData", JSON.stringify(data)); // Cache API data
+            renderCountries(data);
+        });
+} else {
+    renderCountries(allCountriesInfo);
+}
+
 
 filterRegion.addEventListener('change',(e)=>{
     fetch(`https://restcountries.com/v3.1/region/${filterRegion.value}`).then((response)=>response.json())
@@ -83,3 +100,9 @@ theme.addEventListener('click', () => {
     applyTheme(newTheme);
 });
 
+// Enable lazy loading for all images
+const images = document.querySelectorAll("img");
+
+images.forEach((img) => {
+    img.setAttribute("loading", "lazy");
+});

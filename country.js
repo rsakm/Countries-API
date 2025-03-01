@@ -96,3 +96,10 @@ theme.addEventListener('click', () => {
     localStorage.setItem('theme', newTheme);
     applyTheme(newTheme);
 });
+
+// Enable lazy loading for all images
+const images = document.querySelectorAll("img");
+
+images.forEach((img) => {
+    img.setAttribute("loading", "lazy");
+});
